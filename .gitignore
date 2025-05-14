@@ -36,3 +36,7 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+
+packages/db/generated
+apps/merchant-app/.env
+apps/user-app/.env

@@ -1,27 +1,14 @@
-import Image, { type ImageProps } from "next/image";
-import { Button } from "@repo/ui/button";
-import styles from "./page.module.css";
+"use client"
 
-type Props = Omit<ImageProps, "src"> & {
-  srcLight: string;
-  srcDark: string;
-};
+import { signIn, signOut, useSession } from "next-auth/react";
+import { Appbar } from "@repo/ui/Appbar";
+import { JSX } from "react";
 
-const ThemeImage = (props: Props) => {
-  const { srcLight, srcDark, ...rest } = props;
-
+export default function Page(): JSX.Element {
+  const session = useSession();
   return (
-    <>
-      <Image {...rest} src={srcLight} className="imgLight" />
-      <Image {...rest} src={srcDark} className="imgDark" />
-    </>
-  );
-};
-
-export default function Home() {
-  return (
-   <div className="bg-red-200">
-    hello from web
+   <div>
+      <Appbar onSignin={signIn} onSignout={signOut} user={session.data?.user} />
    </div>
   );
 }

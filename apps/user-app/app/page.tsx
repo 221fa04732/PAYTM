@@ -1,17 +1,18 @@
-import { prisma } from "@repo/db";
- 
+"use client"
 
-export default async function Home() {
+import { signIn, signOut, useSession } from "next-auth/react";
+import { Appbar } from "@repo/ui/Appbar";
+import { JSX } from "react";
+import Balances from "./balance/Balance";
 
-  const user = await prisma.user.findFirst({
-    where : {
-      email : "mri@gmail.com"
-    }
-  })
+export default function Page(): JSX.Element {
+  const session = useSession();
 
   return (
-    <div className="h-screen w-screen bg-red-600 text-white font-sans text-5xl flex justify-center items-center">
-      {user ? user.name : "Hii User"}
-    </div>
+   <div>
+      <Appbar onSignin={signIn} onSignout={signOut} user={session.data?.user} />
+
+      <Balances />
+   </div>
   );
 }
